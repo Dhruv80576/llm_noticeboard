@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+var _name;
+
 class GroupCard extends StatelessWidget {
-  const GroupCard({super.key});
+  final name;
+  GroupCard(this.name) {
+    _name = name;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class GroupCard extends StatelessWidget {
         Container(
           margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
           child: Text(
-            "ECE EN1R2012",
+            name,
             style:
                 TextStyle(color: Colors.black, overflow: TextOverflow.ellipsis),
           ),

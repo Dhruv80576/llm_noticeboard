@@ -7,22 +7,29 @@ import 'package:llm_noticeboard/pages/HomePage.dart';
 
 class GroupsPage extends StatefulWidget {
   const GroupsPage({super.key});
-
   @override
   State<GroupsPage> createState() => _GroupsPageState();
 }
 
 class _GroupsPageState extends State<GroupsPage> {
+  List<String> groups = [
+    "ECE A",
+    "ECE123",
+    "ECE121",
+    "ECE421",
+  ];
   @override
   Widget build(BuildContext context) {
     return Container(
       child: (ListView.separated(
         itemBuilder: (context, index) {
           return GestureDetector(
-            child: GroupCard(),
+            child: GroupCard(groups[index]),
             onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => ChatPage()));
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChatPage(groups[index])));
             },
           );
         },
@@ -31,7 +38,7 @@ class _GroupsPageState extends State<GroupsPage> {
             height: 2,
           );
         },
-        itemCount: 4,
+        itemCount: groups.length,
       )),
     );
   }
