@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
+import 'package:llm_noticeboard/Api/messages.dart';
 import 'package:llm_noticeboard/models/chatModel.dart';
+import 'package:llm_noticeboard/models/messageModel.dart';
 
 var _groupId;
 StreamController<ChatMessageModel> _chatMessagesStreamController =
@@ -26,6 +28,7 @@ class _ChatPageState extends State<ChatPage> {
   TextEditingController _messageController = TextEditingController();
   @override
   void initState() {
+    getData();
     _chatMessagesStream.listen((streamedMessages) {
       // _allMessagesContainedInTheStream.clear();
 
@@ -117,10 +120,15 @@ class _ChatPageState extends State<ChatPage> {
               ),
             ),
             IconButton(
-              onPressed: () {
-                _chatMessagesStreamController
-                    .add(ChatMessageModel(message: _messageController.text));
-                _messageController.clear();
+              onPressed: () async {
+                if (_messageController.text != '' ||
+                    _messageController.text != ' ') {
+                  int statusCode =
+                      await Message().postMessage(_messageController.text);
+                  _chatMessagesStreamController
+                      .add(ChatMessageModel(message: _messageController.text));
+                  _messageController.clear();
+                }
               },
               icon: Icon(Icons.send),
             ),
@@ -128,5 +136,13 @@ class _ChatPageState extends State<ChatPage> {
         ),
       ),
     );
+  }
+
+  void getData() async {
+    List<Message_Model>? temp = await Message().getMessages();
+    for (var element in temp!) {
+      _chatMessagesStreamController
+          .add(ChatMessageModel(message: element.message));
+    }
   }
 }
