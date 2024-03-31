@@ -86,7 +86,7 @@ class _CalendarCardState extends State<CalendarCard> {
       String sdate = date.toString(); 
       DateTime parsedDate = DateFormat('yyyy-MM-dd').parse(sdate);
       String extractedDate = DateFormat('yyyy-MM-dd').format(parsedDate);
-      final response = await http.get(Uri.parse('http://localhost:3090/events?date=${extractedDate}'));
+      final response = await http.get(Uri.parse('https://link-to-backend.azurewebsites.net/events?date=${extractedDate}'));
       if (response.statusCode == 200) {
         List<dynamic> eventData = jsonDecode(response.body);
         setState(() {

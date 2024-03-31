@@ -18,9 +18,9 @@ class Auth {
     print(requestBody);
  
       http.Response response = await http.post(
-        Uri.parse('http://localhost:3090/login'),  
+        Uri.https('link-to-backend.azurewebsites.net','/login'),  
             headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json',
       },
         body:  requestBody,
       );
@@ -48,7 +48,7 @@ class Auth {
 
     // Send the POST request
     var response = await http.post(
-      Uri.parse('http://localhost:3090/create_user'),  
+      Uri.parse('https://link-to-backend.azurewebsites.net/create_user'),  
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

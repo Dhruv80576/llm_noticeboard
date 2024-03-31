@@ -9,7 +9,7 @@ class Message {
     List<Message_Model> messages = [];
     print('in the get messages function');
     try {
-      Response response = await get(Uri.parse('http://localhost:3090/messages'));
+      Response response = await get(Uri.parse('https://link-to-backend.azurewebsites.net/messages'));
       print(response.body);
       List<dynamic> messageList = jsonDecode(response.body);
       for (var messageData in messageList) {
@@ -40,7 +40,7 @@ class Message {
     String requestBody = jsonEncode(body);
       print(requestBody);
  
-       Response response = await post(Uri.parse('http://localhost:3090/post_message'), headers: <String, String>{
+       Response response = await post(Uri.parse('https://link-to-backend.azurewebsites.net/post_message'), headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
         body:  requestBody);
